@@ -2,7 +2,7 @@ package testClean;
 
 import activities.whendo.EditTaskScreen;
 import activities.whendo.ListScreen;
-import activities.whendo.NewtareaScreen;
+import activities.whendo.NewTaskScreen;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,28 +13,28 @@ import java.util.Date;
 
 public class DeleteTaskTest {
     ListScreen listScreen = new ListScreen();
-    NewtareaScreen newtareaScreen = new NewtareaScreen();
+    NewTaskScreen newTaskScreen = new NewTaskScreen();
     EditTaskScreen editTaskScreen = new EditTaskScreen();
 
     @Test
     public void deleteTask() throws MalformedURLException, InterruptedException {
-        String proyecto="Manuel"+new Date().getSeconds()+new Date().getMinutes();
-        String descripcion = "Descripcion"+new Date().getSeconds();
-        listScreen.newTareaButton.click();
-        newtareaScreen.nameTareaTxtBox.setValue(proyecto);
-        newtareaScreen.descriptionTxtBox.setValue(descripcion);
-        newtareaScreen.saveTareaButton.click();
+        String taskTitle="Manuel"+new Date().getSeconds()+new Date().getMinutes();
+        String description = "Descripcion"+new Date().getSeconds();
+        listScreen.newTaskButton.click();
+        newTaskScreen.nameTaskTxtBox.setValue(taskTitle);
+        newTaskScreen.descriptionTxtBox.setValue(description);
+        newTaskScreen.saveTaskButton.click();
 
         Thread.sleep(2000);
 
-        Assertions.assertTrue(listScreen.isTareaTitleDisplayed(proyecto),"Error no se creo el proyecto");
+        Assertions.assertTrue(listScreen.isTaskTitleDisplayed(taskTitle),"Error no se creo el proyecto");
 
-        listScreen.enterEditTask(proyecto);
+        listScreen.enterEditTask(taskTitle);
         editTaskScreen.deleteTask.click();
         editTaskScreen.confirmDelete.click();
         Thread.sleep(2000);
 
-        Assertions.assertTrue(!listScreen.isTareaTitleDisplayed(proyecto),"ERROR no se elimino la tarea");
+        Assertions.assertTrue(!listScreen.isTaskTitleDisplayed(taskTitle),"ERROR no se elimino la tarea");
     }
 
     @AfterEach
